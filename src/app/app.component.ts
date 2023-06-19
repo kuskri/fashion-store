@@ -16,6 +16,5 @@ export class AppComponent implements OnInit {
     this.cartService.cart.subscribe((_cart) => {
       this.cart = _cart;
     });
-    console.log("here");
   }
 }

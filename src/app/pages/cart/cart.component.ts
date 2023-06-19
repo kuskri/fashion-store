@@ -8,22 +8,7 @@ import { CartService } from "src/app/services/cart.service";
 })
 export class CartComponent implements OnInit {
   cart: Cart = {
-    items: [
-      {
-        product: "https://via.placeholder.com/150",
-        name: "sneakers",
-        price: 150,
-        quantity: 1,
-        id: 1,
-      },
-      {
-        product: "https://via.placeholder.com/150",
-        name: "sneakers",
-        price: 150,
-        quantity: 2,
-        id: 2,
-      },
-    ],
+    items: [],
   };
   dataSource: Array<CartItem> = [];
   displayCols: Array<string> = [
@@ -38,10 +23,29 @@ export class CartComponent implements OnInit {
   constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
-    this.dataSource = this.cart.items;
+    this.cartService.cart.subscribe((_cart: Cart) => {
+      this.cart = _cart;
+      this.dataSource = this.cart.items;
+    });
   }
+
+  onRemoveItemFromCart = (productId: number) => {
+    this.cartService.removeItemFromCart(productId);
+  };
+
+  onClearCart = (): void => {
+    this.cartService.clearCart();
+  };
 
   getTotal = (items: Array<CartItem>): number => {
     return this.cartService.getTotal(items);
+  };
+
+  onDetractQuantity = (el: CartItem): void => {
+    this.cartService.detractQuantity(el);
+  };
+
+  onAddQuantity = (el: CartItem): void => {
+    this.cartService.addToCart(el);
   };
 }
