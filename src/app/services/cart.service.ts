@@ -35,4 +35,32 @@ export class CartService {
     this.cart.next({ items: [] });
     this._snackBar.open("Cart is clear", "Ok", { duration: 3000 });
   };
+
+  removeItemFromCart = (productId: number, update = true): Array<CartItem> => {
+    const filteredItems = this.cart.value.items.filter(
+      (i) => i.id !== productId
+    );
+    if (update) {
+      this.cart.next({ items: filteredItems });
+      this._snackBar.open("Item removed from cart", "Ok", { duration: 3000 });
+    }
+    return filteredItems;
+  };
+
+  detractQuantity = (cartItem: CartItem): void => {
+    let itemToBeRemoved: CartItem | undefined;
+    let filteredItems = this.cart.value.items.map((i) => {
+      if (i.id === cartItem.id) {
+        i.quantity--;
+        if (i.quantity === 0) {
+          itemToBeRemoved = cartItem;
+        }
+      }
+      return i;
+    });
+    if (itemToBeRemoved)
+      filteredItems = this.removeItemFromCart(itemToBeRemoved.id, false);
+    this.cart.next({ items: filteredItems });
+    this._snackBar.open("Item removed from cart", "Ok", { duration: 3000 });
+  };
 }
