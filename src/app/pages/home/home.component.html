@@ -9,16 +9,9 @@ class="min-h-full max-w-7xl mx-auto border-x"
     <app-products-header (columnsCountChange)="onColumnsCountChange($event)"></app-products-header>
     <mat-grid-list gutterSize="16" [cols]="cols" [rowHeight]="rowHeight">
       <mat-grid-tile>
-        <app-product-card class="w-full" [fullWidthMode]="cols===1"></app-product-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <app-product-card class="w-full" [fullWidthMode]="cols===1"></app-product-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <app-product-card class="w-full" [fullWidthMode]="cols===1"></app-product-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <app-product-card class="w-full" [fullWidthMode]="cols===1"></app-product-card>
+        <app-product-card 
+        (addProductToCart)="onAddToCart($event)" 
+        class="w-full" [fullWidthMode]="cols===1"></app-product-card>
       </mat-grid-tile>
     </mat-grid-list>
   </mat-drawer-content>
