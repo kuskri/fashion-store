@@ -10,14 +10,7 @@ export class ProductCardComponent implements OnInit {
 
   @Input() fullWidthMode = false;
 
-  product: Product | undefined = {
-    id: 1,
-    title: "Sneakers",
-    price: 150,
-    category: "shoes",
-    description: "beautiful sneakers",
-    image: "https://via.placeholder.com/150/",
-  };
+  @Input() product: Product | undefined;
 
   constructor() {}
 
